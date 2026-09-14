@@ -3,203 +3,379 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KPI Test Portal</title>
+  <title>The KPI Plus | พาร์ทเนอร์ด้านผลการดำเนินงานและการเติบโตของโรงแรม</title>
+  <meta name="description" content="The KPI Plus ช่วยโรงแรมสร้าง Demand พัฒนาช่องทางการขาย และเชื่อม Data, Technology และ AI เพื่อเพิ่มรายได้และยอดจอง พร้อมวัดผลได้จริง" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div id="login-screen" class="login-screen">
-    <div class="login-card">
-      <div class="brand">
-        <span class="brand-mark">KPI</span>
-        <div>
-          <h1>Test Portal</h1>
-          <p>ระบบทดสอบ KPI และเวิร์กโฟลว์ภายใน</p>
-        </div>
-      </div>
-      <form id="login-form">
-        <label>
-          ผู้ใช้ทดสอบ
-          <input id="username" type="text" value="tester" autocomplete="username" required />
-        </label>
-        <label>
-          รหัสผ่าน
-          <input id="password" type="password" value="test1234" autocomplete="current-password" required />
-        </label>
-        <p class="hint">บัญชีทดสอบ: <code>tester</code> / <code>test1234</code></p>
-        <button type="submit" class="btn primary">เข้าสู่ระบบทดสอบ</button>
-      </form>
-    </div>
-  </div>
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="#top" aria-label="The KPI Plus home">
+        <span class="logo-mark" aria-hidden="true"></span>
+        <span class="logo-text">
+          <strong>THE KPI PLUS</strong>
+        </span>
+      </a>
 
-  <div id="app" class="app hidden">
-    <header class="topnav">
-      <div class="brand compact">
-        <span class="brand-mark">KPI</span>
-        <strong>Test Portal</strong>
-      </div>
-      <nav class="nav-horizontal">
-        <button class="nav-btn active" data-view="dashboard">แดชบอร์ด</button>
-        <button class="nav-btn" data-view="kpis">รายการ KPI</button>
-        <button class="nav-btn" data-view="tests">เคสทดสอบ</button>
-        <button class="nav-btn" data-view="form">ฟอร์มบันทึกผล</button>
-        <button class="nav-btn" data-view="reports">รายงาน</button>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" type="button">
+        เมนู
+      </button>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+        <div class="nav-dropdown">
+          <button class="nav-link nav-link-btn" type="button" aria-expanded="false">โซลูชัน</button>
+          <div class="dropdown-panel">
+            <a href="#solutions">เพิ่มรายได้และผลตอบแทน</a>
+            <a href="#solutions">เพิ่มการมองเห็นและโอกาสการจอง</a>
+            <a href="#solutions">พัฒนาทีม ระบบ และวิธีการทำงาน</a>
+          </div>
+        </div>
+        <a class="nav-link" href="#approach">แนวทางการทำงาน</a>
+        <a class="nav-link" href="#insights">บทความและมุมมอง</a>
+        <a class="nav-link" href="#results">ผลงานลูกค้า</a>
+        <a class="nav-link" href="#about">เกี่ยวกับเรา</a>
+        <a class="nav-link" href="#contact">ติดต่อเรา</a>
       </nav>
-      <div class="topnav-actions">
-        <span id="clock" class="clock"></span>
-        <span class="user-chip">tester</span>
-        <button id="logout-btn" class="btn ghost">ออกจากระบบ</button>
+
+      <div class="header-actions">
+        <button class="lang-btn" type="button" aria-label="Language">ไทย</button>
+        <a class="btn btn-accent" href="#contact">ขอรับการวิเคราะห์โรงแรม</a>
       </div>
-    </header>
+    </div>
+  </header>
 
-    <main>
-      <header class="topbar">
-        <div>
-          <h2 id="page-title">แดชบอร์ด</h2>
-          <p id="page-subtitle">ภาพรวมสถานะระบบทดสอบ</p>
-        </div>
-      </header>
-
-      <section id="view-dashboard" class="view">
-        <div class="stat-grid">
-          <article class="stat-card">
-            <p>KPI ทั้งหมด</p>
-            <strong id="stat-total">0</strong>
-          </article>
-          <article class="stat-card ok">
-            <p>ผ่านเกณฑ์</p>
-            <strong id="stat-pass">0</strong>
-          </article>
-          <article class="stat-card warn">
-            <p>ใกล้เกณฑ์</p>
-            <strong id="stat-warn">0</strong>
-          </article>
-          <article class="stat-card bad">
-            <p>ไม่ผ่าน</p>
-            <strong id="stat-fail">0</strong>
-          </article>
-        </div>
-
-        <div class="chart-grid">
-          <div class="panel chart-panel">
-            <div class="panel-head">
-              <div>
-                <h3>แนวโน้มผลทดสอบรายสัปดาห์</h3>
-                <p class="muted">อัตราผ่านเกณฑ์และเคสที่รันสำเร็จ</p>
-              </div>
-            </div>
-            <div class="chart-box">
-              <canvas id="chart-trend"></canvas>
-            </div>
-          </div>
-
-          <div class="panel chart-panel">
-            <div class="panel-head">
-              <div>
-                <h3>สัดส่วนสถานะ KPI</h3>
-                <p class="muted">ผ่าน / ใกล้เกณฑ์ / ไม่ผ่าน</p>
-              </div>
-            </div>
-            <div class="chart-box chart-box-sm">
-              <canvas id="chart-status"></canvas>
-            </div>
-            <div id="status-legend" class="chart-legend"></div>
-          </div>
-
-          <div class="panel chart-panel">
-            <div class="panel-head">
-              <div>
-                <h3>เปรียบเทียบเป้าหมายกับผลจริง</h3>
-                <p class="muted">เปอร์เซ็นต์ความสำเร็จของแต่ละ KPI</p>
-              </div>
-            </div>
-            <div class="chart-box">
-              <canvas id="chart-compare"></canvas>
-            </div>
-          </div>
-
-          <div class="panel chart-panel">
-            <div class="panel-head">
-              <div>
-                <h3>ผลตามหน่วยงาน</h3>
-                <p class="muted">คะแนนเฉลี่ยรายหน่วย</p>
-              </div>
-            </div>
-            <div class="chart-box chart-box-sm">
-              <canvas id="chart-unit"></canvas>
-            </div>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">พันธมิตรด้านรายได้และการเติบโตของธุรกิจโรงแรม</p>
+          <p class="hero-tags">Revenue Management · OTA Strategy · Digital Marketing</p>
+          <a class="btn btn-outline-light btn-sm" href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          <h1>
+            ลดรายได้ที่สูญเสีย<br />
+            แล้วสร้างการเติบโต<br />
+            <span>อย่างเป็นระบบ</span>
+          </h1>
+          <p class="lead">
+            The KPI Plus ช่วยโรงแรมสร้าง Demand พัฒนาช่องทางการขาย และเชื่อม Data, Technology และ AI
+            เข้ากับข้อมูลราคา การขาย และการตลาด เพื่อให้ตัดสินใจได้ดีขึ้น เพิ่มรายได้และยอดจอง พร้อมวัดผลได้จริง
+          </p>
+          <a class="btn btn-accent btn-lg" href="#contact">ขอรับการวิเคราะห์โรงแรม ↗</a>
+          <div class="hero-foot">
+            <p>REVENUE · DIRECT BOOKING · COMMERCIAL GROWTH</p>
+            <p>รายได้ · การจองตรง · การเติบโตของโรงแรม</p>
           </div>
         </div>
-      </section>
 
-      <section id="view-kpis" class="view hidden">
-        <div class="toolbar">
-          <input id="kpi-search" type="search" placeholder="ค้นหา KPI, หน่วยงาน, เจ้าของ..." />
-          <select id="kpi-filter">
-            <option value="all">สถานะทั้งหมด</option>
-            <option value="pass">ผ่าน</option>
-            <option value="warn">ใกล้เกณฑ์</option>
-            <option value="fail">ไม่ผ่าน</option>
-          </select>
+        <div class="hero-visual reveal delay-1">
+          <div class="hero-media">
+            <img
+              src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80"
+              alt="ทีมโรงแรมวิเคราะห์ผลประกอบการในล็อบบี้"
+              width="1200"
+              height="1500"
+            />
+          </div>
+          <div class="hero-cards">
+            <article>
+              <h3>รายได้รั่วไหลตรงไหน</h3>
+              <p>วิเคราะห์ราคาและ Demand เพื่อเห็นภาพชัด</p>
+            </article>
+            <article>
+              <h3>พึ่งพา OTA สูงไปไหม</h3>
+              <p>ตรวจสัดส่วนและกำไรของแต่ละช่องทาง</p>
+            </article>
+            <article>
+              <h3>งานไม่เดินต่อ</h3>
+              <p>เปลี่ยนงาน Manual เป็นระบบที่ใช้งานได้จริง</p>
+            </article>
+          </div>
         </div>
-        <div class="panel table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>รหัส</th>
-                <th>ชื่อ KPI</th>
-                <th>หน่วยงาน</th>
-                <th>เป้าหมาย</th>
-                <th>ผลจริง</th>
-                <th>สถานะ</th>
-              </tr>
-            </thead>
-            <tbody id="kpi-tbody"></tbody>
-          </table>
-        </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="view-tests" class="view hidden">
-        <div class="panel">
-          <h3>รันเคสทดสอบระบบ</h3>
-          <p class="muted">กดรันเพื่อจำลองการตรวจสุขภาพระบบ ใช้เช็ก UI, toast และสถานะผลลัพธ์</p>
-          <div id="test-list" class="test-list"></div>
-          <button id="run-tests-btn" class="btn primary">รันเคสทั้งหมด</button>
+    <section class="section problems" id="problems">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow dark">ตอนนี้โรงแรมของคุณกำลังติดตรงไหน?</p>
+          <h2>เริ่มจากหาสาเหตุที่ทำให้รายได้หรือยอดจองยังไปไม่ถึงเป้าหมาย</h2>
+          <p class="muted">เห็นข้อมูลชัด แล้วเลือกสิ่งที่ควรทำต่อ</p>
         </div>
-      </section>
+        <div class="card-grid three">
+          <article class="card reveal">
+            <span class="icon icon-chart" aria-hidden="true"></span>
+            <h3>ต้องการเพิ่มรายได้?</h3>
+            <p>ดูจุดที่ราคา Demand และช่องทางยังไม่ทำงานเต็มศักยภาพ</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+          <article class="card reveal delay-1">
+            <span class="icon icon-globe" aria-hidden="true"></span>
+            <h3>พึ่งพา OTA มากเกินไปหรือไม่?</h3>
+            <p>ลดค่าคอมมิชชันและเพิ่มสัดส่วน Direct Booking อย่างมีระบบ</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+          <article class="card reveal delay-2">
+            <span class="icon icon-search" aria-hidden="true"></span>
+            <h3>ลูกค้าค้นหาโรงแรมของคุณไม่เจอ?</h3>
+            <p>ปรับ SEO Local Search และเว็บไซต์ให้พบเจอและจองได้ง่ายขึ้น</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+          <article class="card reveal">
+            <span class="icon icon-megaphone" aria-hidden="true"></span>
+            <h3>ทำการตลาดแล้ว แต่ยอดจองไม่เพิ่ม?</h3>
+            <p>เชื่อม Ads กับ Conversion และวัดผล ROAS ให้ชัดเจน</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+          <article class="card reveal delay-1">
+            <span class="icon icon-gear" aria-hidden="true"></span>
+            <h3>ทีมเสียเวลากับงาน Manual มากเกินไป?</h3>
+            <p>ใช้ Technology และ Automation เพื่อลดงานซ้ำซ้อน</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+          <article class="card reveal delay-2">
+            <span class="icon icon-people" aria-hidden="true"></span>
+            <h3>ต้องการให้ทีมทำงานได้มีประสิทธิภาพมากขึ้น?</h3>
+            <p>พัฒนาทักษะ AI กระบวนการ และวิธีวัดผลของทีมโรงแรม</p>
+            <a href="#solutions">ดูโซลูชันทั้งหมด →</a>
+          </article>
+        </div>
+      </div>
+    </section>
 
-      <section id="view-form" class="view hidden">
-        <form id="result-form" class="panel form-grid">
-          <h3>บันทึกผลการทดสอบ</h3>
+    <section class="section solutions" id="solutions">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow dark">3 ด้านสำคัญที่เชื่อมโยงกัน</p>
+          <h2>เลือกพัฒนาในจุดที่โรงแรมของคุณต้องการมากที่สุด</h2>
+        </div>
+        <div class="pillar-grid">
+          <article class="pillar reveal">
+            <p class="pillar-label">Grow Revenue</p>
+            <h3>เพิ่มรายได้และผลตอบแทน</h3>
+            <p>Revenue Management · ราคา · ช่องทางการขาย · Direct Booking</p>
+            <ul>
+              <li>วางโครงสร้างราคาและช่องทาง</li>
+              <li>ลดรายได้ที่สูญเสียจาก OTA</li>
+              <li>ติดตาม ADR Occupancy และ RevPAR</li>
+            </ul>
+          </article>
+          <article class="pillar reveal delay-1">
+            <p class="pillar-label">Grow Demand</p>
+            <h3>เพิ่มการมองเห็นและโอกาสการจอง</h3>
+            <p>Google · Meta · SEO · Local Search · Website Conversion</p>
+            <ul>
+              <li>สร้าง Demand ที่วัดผลได้</li>
+              <li>ปรับเว็บไซต์ให้จองง่ายขึ้น</li>
+              <li>เชื่อมการตลาดกับยอดจองจริง</li>
+            </ul>
+          </article>
+          <article class="pillar reveal delay-2">
+            <p class="pillar-label">Grow Capability</p>
+            <h3>พัฒนาทีม ระบบ และวิธีการทำงาน</h3>
+            <p>Technology · AI · Automation · Training</p>
+            <ul>
+              <li>ลดงาน Manual ที่ซ้ำซ้อน</li>
+              <li>ใช้ AI ช่วยตัดสินใจเร็วขึ้น</li>
+              <li>อบรมทีมให้เดินหน้าได้เอง</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section approach" id="approach">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow dark">เริ่มต้นทำงานกับ The KPI Plus อย่างไร</p>
+          <h2>จากข้อมูลที่มี สู่ Action ที่ทีมโรงแรมเดินหน้าต่อได้</h2>
+          <p class="muted">เริ่มจากสิ่งที่โรงแรมกำลังเจอ แล้วค่อยเลือกเรื่องที่ควรทำก่อนอย่างมีเจ้าของงานและวิธีทบทวนที่ชัดเจน</p>
+        </div>
+        <div class="steps">
+          <article class="step reveal">
+            <span>01</span>
+            <h3>เข้าใจสถานการณ์</h3>
+            <p>เริ่มจากทำความเข้าใจธุรกิจ เป้าหมาย ปัญหา และข้อมูลที่โรงแรมมีอยู่</p>
+          </article>
+          <article class="step reveal delay-1">
+            <span>02</span>
+            <h3>หาโอกาสที่สำคัญ</h3>
+            <p>ดูว่า Revenue Distribution Marketing Website Technology หรือทีม จุดไหนสร้างผลลัพธ์ได้มากที่สุด</p>
+          </article>
+          <article class="step reveal delay-2">
+            <span>03</span>
+            <h3>วาง Action ที่ชัดเจน</h3>
+            <p>กำหนดสิ่งที่ควรทำ ผู้รับผิดชอบ และวิธีวัดผล</p>
+          </article>
+          <article class="step reveal delay-3">
+            <span>04</span>
+            <h3>วัดผลและพัฒนา</h3>
+            <p>ติดตามผล ปรับแนวทาง และพัฒนาต่อจากข้อมูลที่เกิดขึ้นจริง</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section metrics dark-band" id="insights">
+      <div class="container metrics-grid">
+        <div class="reveal">
+          <p class="eyebrow">ทุกอย่างต้องทำงานเชื่อมโยงกัน</p>
+          <h2>เราโฟกัสในสิ่งที่ส่งผลต่อผลประกอบการจริง</h2>
+          <p class="lead-light">
+            Revenue, ADR, Occupancy, RevPAR, ROAS และ Direct Booking ช่วยให้ทีมโรงแรมเห็นภาพรวม
+            แล้วตัดสินใจเรื่องราคา Demand และช่องทางการขายได้เร็วขึ้น
+          </p>
+        </div>
+        <div class="metric-cards reveal delay-1">
+          <div><strong>ADR</strong><span>Average Daily Rate</span></div>
+          <div><strong>RevPAR</strong><span>Revenue Per Available Room</span></div>
+          <div><strong>Occupancy</strong><span>อัตราการเข้าพัก</span></div>
+          <div><strong>ROAS</strong><span>ผลตอบแทนโฆษณา</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section results" id="results">
+      <div class="container results-grid">
+        <div class="section-head left reveal">
+          <p class="eyebrow dark">ผลลัพธ์ที่มีข้อมูลรองรับ</p>
+          <h2>ผลลัพธ์จะมีความหมาย เมื่อสามารถตรวจสอบและวัดผลได้</h2>
+          <p class="muted">Case study และผลลัพธ์จะเผยแพร่เมื่อมีการอนุมัติและตรวจสอบแหล่งข้อมูลเรียบร้อยแล้วเท่านั้น</p>
+          <a class="btn btn-dark" href="#contact">Start a performance conversation</a>
+        </div>
+        <div class="result-panel reveal delay-1">
+          <p class="panel-kicker">Founder-led hospitality focus</p>
+          <h3>Commercial growth is closer when leadership stays close to the work.</h3>
+          <p>The KPI Plus is founder-led and based in Phuket. We work with hotel teams through practical commercial conversations, clear operating choices, and accountable next steps.</p>
+          <ul class="chips">
+            <li>Commercially focused</li>
+            <li>Regionally grounded</li>
+            <li>Built for practical action</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container about-grid">
+        <div class="reveal">
+          <p class="eyebrow dark">พบกับเราได้ที่</p>
+          <h2>พันธมิตรธุรกิจโรงแรมจากภูเก็ต ที่เข้าใจตลาดและการทำงานของโรงแรมในภูมิภาคนี้</h2>
+          <p class="muted">นัดคุยกับทีม โทร ส่งอีเมล หรือมาที่สำนักงาน The KPI Plus ตามตำแหน่งที่ยืนยันแล้ว</p>
+        </div>
+        <div class="office-card reveal delay-1">
+          <p class="office-label">สำนักงานภูเก็ต</p>
+          <p>58/15 ถนนเจ้าฟ้าตะวันออก ตำบลตลาดเหนือ อำเภอเมืองภูเก็ต จังหวัดภูเก็ต 83000</p>
+          <p><a href="tel:+66826356266">+66 82 635 6266</a></p>
+          <p><a href="mailto:info@thekpiplus.com">info@thekpiplus.com</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container contact-grid">
+        <div class="reveal">
+          <p class="eyebrow dark">เริ่มจากเห็นภาพให้ชัด</p>
+          <h2>ค้นหาว่าโรงแรมของคุณกำลังพลาดโอกาสสร้างรายได้ตรงไหน</h2>
+          <p class="muted">ส่งรายละเอียดโรงแรมมาให้ทีมดูเบื้องต้น แล้วเราจะติดต่อกลับเพื่อคุยเรื่องที่ควรโฟกัสก่อน</p>
+        </div>
+
+        <form class="contact-form reveal delay-1" id="contact-form">
+          <div class="form-row">
+            <label>ชื่อ-นามสกุล *<input name="name" required /></label>
+            <label>ชื่อโรงแรม / บริษัท *<input name="hotel" required /></label>
+          </div>
+          <div class="form-row">
+            <label>ตำแหน่ง<input name="role" /></label>
+            <label>อีเมลสำหรับติดต่อ *<input type="email" name="email" required /></label>
+          </div>
+          <div class="form-row">
+            <label>เบอร์โทรศัพท์ *<input name="phone" required /></label>
+            <label>ที่ตั้งโรงแรม<input name="location" /></label>
+          </div>
+          <div class="form-row">
+            <label>เว็บไซต์<input name="website" /></label>
+            <label>จำนวนห้องพัก<input type="number" name="rooms" min="1" /></label>
+          </div>
+          <div class="form-row">
+            <label>
+              เรื่องที่อยากให้ช่วย *
+              <select name="topic" required>
+                <option>Revenue Management</option>
+                <option>OTA &amp; Distribution</option>
+                <option>Pricing Strategy</option>
+                <option>Direct Booking Strategy</option>
+                <option>Google Ads</option>
+                <option>Meta Ads</option>
+                <option>SEO &amp; Local Search</option>
+                <option>Hotel Website &amp; Conversion</option>
+                <option>Hospitality Technology</option>
+                <option>AI &amp; Automation</option>
+                <option>Academy &amp; Training</option>
+                <option>Not sure yet</option>
+              </select>
+            </label>
+            <label>
+              ช่องทางที่สะดวก *
+              <select name="channel" required>
+                <option>Email</option>
+                <option>Phone</option>
+                <option>WhatsApp</option>
+                <option>LINE</option>
+              </select>
+            </label>
+          </div>
           <label>
-            เลือก KPI
-            <select id="form-kpi" required></select>
+            ตอนนี้โรงแรมอยากแก้เรื่องอะไรที่สุด? *
+            <textarea name="challenge" rows="4" required></textarea>
           </label>
-          <label>
-            ค่าผลจริง
-            <input id="form-actual" type="number" min="0" step="0.01" required />
-          </label>
-          <label>
-            หมายเหตุ
-            <textarea id="form-note" rows="3" placeholder="บันทึกสิ่งที่พบระหว่างทดสอบ"></textarea>
-          </label>
-          <button type="submit" class="btn primary">บันทึกผล</button>
+          <p class="form-note">By submitting, you agree that The KPI Plus may contact you about this enquiry.</p>
+          <button class="btn btn-accent btn-lg" type="submit">ขอรับการวิเคราะห์โรงแรม</button>
         </form>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section id="view-reports" class="view hidden">
-        <div class="panel">
-          <h3>สรุปรายงานทดสอบ</h3>
-          <ul id="report-list" class="report-list"></ul>
-        </div>
-      </section>
-    </main>
-  </div>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a class="logo light" href="#top">
+          <span class="logo-mark" aria-hidden="true"></span>
+          <strong>THE KPI PLUS</strong>
+        </a>
+        <p>พันธมิตรด้าน Revenue Management และการเติบโตของธุรกิจโรงแรม</p>
+        <p>เราช่วยโรงแรมเพิ่มรายได้ สร้าง Demand พัฒนาช่องทางการขาย และใช้ Data, Technology และ AI เพื่อให้ตัดสินใจได้ดีขึ้น</p>
+      </div>
+      <div>
+        <h3>โซลูชัน</h3>
+        <a href="#solutions">Grow Revenue</a>
+        <a href="#solutions">Grow Demand</a>
+        <a href="#solutions">Grow Capability</a>
+      </div>
+      <div>
+        <h3>รู้จัก The KPI Plus</h3>
+        <a href="#approach">แนวทางการทำงาน</a>
+        <a href="#insights">บทความและมุมมอง</a>
+        <a href="#results">ผลงานลูกค้า</a>
+        <a href="#about">เกี่ยวกับเรา</a>
+        <a href="#contact">ติดต่อเรา</a>
+      </div>
+      <div>
+        <h3>ติดต่อ The KPI Plus</h3>
+        <a href="mailto:info@thekpiplus.com">info@thekpiplus.com</a>
+        <a href="tel:+66826356266">+66 82 635 6266</a>
+        <a href="tel:+66626356646">+66 62 635 6646</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>© 2026 The KPI Plus Co., Ltd. · บริษัท เดอะ เคพีไอ พลัส จำกัด · All rights reserved.</p>
+    </div>
+  </footer>
 
-  <div id="toast" class="toast hidden"></div>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <a class="back-top" href="#top" aria-label="กลับขึ้นด้านบน">↑</a>
+  <div id="toast" class="toast hidden" role="status"></div>
   <script src="js/app.js"></script>
 </body>
 </html>
