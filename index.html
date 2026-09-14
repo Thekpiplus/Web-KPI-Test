@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPI Test Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="brand">
+        <span class="brand-mark">KPI</span>
+        <div>
+          <h1>Test Portal</h1>
+          <p>ระบบทดสอบ KPI และเวิร์กโฟลว์ภายใน</p>
+        </div>
+      </div>
+      <form id="login-form">
+        <label>
+          ผู้ใช้ทดสอบ
+          <input id="username" type="text" value="tester" autocomplete="username" required />
+        </label>
+        <label>
+          รหัสผ่าน
+          <input id="password" type="password" value="test1234" autocomplete="current-password" required />
+        </label>
+        <p class="hint">บัญชีทดสอบ: <code>tester</code> / <code>test1234</code></p>
+        <button type="submit" class="btn primary">เข้าสู่ระบบทดสอบ</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="app" class="app hidden">
+    <header class="topnav">
+      <div class="brand compact">
+        <span class="brand-mark">KPI</span>
+        <strong>Test Portal</strong>
+      </div>
+      <nav class="nav-horizontal">
+        <button class="nav-btn active" data-view="dashboard">แดชบอร์ด</button>
+        <button class="nav-btn" data-view="kpis">รายการ KPI</button>
+        <button class="nav-btn" data-view="tests">เคสทดสอบ</button>
+        <button class="nav-btn" data-view="form">ฟอร์มบันทึกผล</button>
+        <button class="nav-btn" data-view="reports">รายงาน</button>
+      </nav>
+      <div class="topnav-actions">
+        <span id="clock" class="clock"></span>
+        <span class="user-chip">tester</span>
+        <button id="logout-btn" class="btn ghost">ออกจากระบบ</button>
+      </div>
+    </header>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <h2 id="page-title">แดชบอร์ด</h2>
+          <p id="page-subtitle">ภาพรวมสถานะระบบทดสอบ</p>
+        </div>
+      </header>
+
+      <section id="view-dashboard" class="view">
+        <div class="stat-grid">
+          <article class="stat-card">
+            <p>KPI ทั้งหมด</p>
+            <strong id="stat-total">0</strong>
+          </article>
+          <article class="stat-card ok">
+            <p>ผ่านเกณฑ์</p>
+            <strong id="stat-pass">0</strong>
+          </article>
+          <article class="stat-card warn">
+            <p>ใกล้เกณฑ์</p>
+            <strong id="stat-warn">0</strong>
+          </article>
+          <article class="stat-card bad">
+            <p>ไม่ผ่าน</p>
+            <strong id="stat-fail">0</strong>
+          </article>
+        </div>
+
+        <div class="chart-grid">
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <h3>แนวโน้มผลทดสอบรายสัปดาห์</h3>
+                <p class="muted">อัตราผ่านเกณฑ์และเคสที่รันสำเร็จ</p>
+              </div>
+            </div>
+            <div class="chart-box">
+              <canvas id="chart-trend"></canvas>
+            </div>
+          </div>
+
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <h3>สัดส่วนสถานะ KPI</h3>
+                <p class="muted">ผ่าน / ใกล้เกณฑ์ / ไม่ผ่าน</p>
+              </div>
+            </div>
+            <div class="chart-box chart-box-sm">
+              <canvas id="chart-status"></canvas>
+            </div>
+            <div id="status-legend" class="chart-legend"></div>
+          </div>
+
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <h3>เปรียบเทียบเป้าหมายกับผลจริง</h3>
+                <p class="muted">เปอร์เซ็นต์ความสำเร็จของแต่ละ KPI</p>
+              </div>
+            </div>
+            <div class="chart-box">
+              <canvas id="chart-compare"></canvas>
+            </div>
+          </div>
+
+          <div class="panel chart-panel">
+            <div class="panel-head">
+              <div>
+                <h3>ผลตามหน่วยงาน</h3>
+                <p class="muted">คะแนนเฉลี่ยรายหน่วย</p>
+              </div>
+            </div>
+            <div class="chart-box chart-box-sm">
+              <canvas id="chart-unit"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-kpis" class="view hidden">
+        <div class="toolbar">
+          <input id="kpi-search" type="search" placeholder="ค้นหา KPI, หน่วยงาน, เจ้าของ..." />
+          <select id="kpi-filter">
+            <option value="all">สถานะทั้งหมด</option>
+            <option value="pass">ผ่าน</option>
+            <option value="warn">ใกล้เกณฑ์</option>
+            <option value="fail">ไม่ผ่าน</option>
+          </select>
+        </div>
+        <div class="panel table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>รหัส</th>
+                <th>ชื่อ KPI</th>
+                <th>หน่วยงาน</th>
+                <th>เป้าหมาย</th>
+                <th>ผลจริง</th>
+                <th>สถานะ</th>
+              </tr>
+            </thead>
+            <tbody id="kpi-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-tests" class="view hidden">
+        <div class="panel">
+          <h3>รันเคสทดสอบระบบ</h3>
+          <p class="muted">กดรันเพื่อจำลองการตรวจสุขภาพระบบ ใช้เช็ก UI, toast และสถานะผลลัพธ์</p>
+          <div id="test-list" class="test-list"></div>
+          <button id="run-tests-btn" class="btn primary">รันเคสทั้งหมด</button>
+        </div>
+      </section>
+
+      <section id="view-form" class="view hidden">
+        <form id="result-form" class="panel form-grid">
+          <h3>บันทึกผลการทดสอบ</h3>
+          <label>
+            เลือก KPI
+            <select id="form-kpi" required></select>
+          </label>
+          <label>
+            ค่าผลจริง
+            <input id="form-actual" type="number" min="0" step="0.01" required />
+          </label>
+          <label>
+            หมายเหตุ
+            <textarea id="form-note" rows="3" placeholder="บันทึกสิ่งที่พบระหว่างทดสอบ"></textarea>
+          </label>
+          <button type="submit" class="btn primary">บันทึกผล</button>
+        </form>
+      </section>
+
+      <section id="view-reports" class="view hidden">
+        <div class="panel">
+          <h3>สรุปรายงานทดสอบ</h3>
+          <ul id="report-list" class="report-list"></ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
