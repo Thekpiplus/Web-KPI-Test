@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "build:css": ".\\tailwindcss.exe -i ./css/input.css -o ./css/style.css --minify",
-    "watch:css": ".\\tailwindcss.exe -i ./css/input.css -o ./css/style.css --watch",
+    "watch:css": ".\\tailwindcss.exe -i ./css/input.css -o ./css/style.css --watch=always",
     "dev": "npm run watch:css"
   },
   "repository": {
